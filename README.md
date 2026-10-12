@@ -1,9 +1,14 @@
 # Fresco implementation
-This is the artifact for the paper "Bidirectional Typing with Freezing,
-Skeletons, and Ghosts", by Wenhao Tang, Shengyi Jiang, Aghilas Y. Boussaa, Sam
-Lindley, and Bruno C. d. S. Oliveira.
+This is the implementation part of the artifact for the POPL27 paper #1060:
 
-This directory contains an implementation of a language with Fresco-based type
+"Bidirectional Typing with Freezing, Skeletons, and Ghosts", by Wenhao
+Tang, Shengyi Jiang, Aghilas Y. Boussaa, Sam
+Lindley, and Bruno C. d. S. Oliveira
+
+The mechanisation part of the artifact is available at
+[fresco-mechanization](https://github.com/jiangsy/fresco-mechanization).
+
+This repository contains an implementation of a language with Fresco-based type
 inference. We extend the type inference algorithm of Section 4 with modal effect
 types and algebraic data types. This implementation also has a web interface
 available [online](https://www.normalesup.org/~boussaa/met/playground/).
@@ -11,13 +16,15 @@ available [online](https://www.normalesup.org/~boussaa/met/playground/).
 Any computer supported by OCaml 5.4 should be usable to evaluate this artifact.
 
 ## List of claims
-1. Section 5 overviews an extension of Fresco to algebraic data types (Section
-   5.1) and modal effect types (Section 5.2). The type inference algorithm
-   implemented in `lib/type.ml` supports both of these extensions
-   which are evaluated in Step 1 of the evaluation instructions.
-2. Appendix A states whether some expressions are well-typed. The directory
-   `tests/fresco` contains tests for the Fresco results in these tables,
-   evaluated in Step 2 of the evaluation instructions.
+1. Section 4 and Appendix C present the type inference algorithm of Fresco.
+   The implementation in `lib/type.ml` implements this algorithm.
+   Appendix A states whether some expressions are well-typed. The
+   directory `tests/fresco` contains tests for the Fresco results in
+   these tables, evaluated in Step 1 of the evaluation instructions.
+2. Section 5 overviews an extension of Fresco to algebraic data types (Section
+   5.1) and modal effect types (Section 5.2). The implementation in
+   `lib/type.ml` supports both of these extensions which are evaluated
+   in Step 2 of the evaluation instructions.
 
 ## Download, installation, and sanity-testing
 ### Download
@@ -102,17 +109,12 @@ interface (`unix.mle`) or an elaboration algorithm for a dependently-typed
 language (`faux-tt.mle`).
 
 ## Evaluation instructions
-The paper claims that we can extend Fresco to support algebraic data types and
-modal effects (claim 1). The command below tests the type-checker on some
-programs that use these features.
-```sh
-./test.sh bin/met.exe tests/
-```
-It ensures that the type-checker accepts the programs `tests/pass` and rejects
-those in `tests/fail`. The command should print `failed 0 tests out of 25`.
+
+
+### Step 1
 
 The appendix gives a table of expressions well-typed and ill-typed in the Fresco
-type system. The command below tests the type-checker tests that the program
+type system (claim 1). The command below tests the type-checker tests that the program
 that should fail (`tests/fresco/fail`) do fail and that the one that should pass
 (`tests/fresco/pass`) do pass.
 ```sh
@@ -126,8 +128,21 @@ have separate accepted and rejected tests. Files `beta1.mle` and
 `beta3.mle` are additional tests outside the tables. The command should
 print `failed 0 tests out of 57`.
 
+### Step 2
+
+The paper claims that we can extend Fresco to support algebraic data types and
+modal effects (claim 2). The command below tests the type-checker on some
+programs that use these features.
+```sh
+./test.sh bin/met.exe tests/
+```
+It ensures that the type-checker accepts the programs `tests/pass` and rejects
+those in `tests/fail`. The command should print `failed 0 tests out of 25`.
+
+
 A test in a `pass` directory fails when the type-checker rejects it. A test in a
 `fail` directory fails when the type-checker accepts it.
+
 ## Additional artifact description
 ### Overview
 The `lib` directory contains the core of the language and it contains the
