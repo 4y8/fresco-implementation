@@ -1,0 +1,14 @@
+type list a = Nil | Cons of a, list a
+type pair a b = Pair of a, b
+
+val make_pair : forall a b . a -> b -> a * b
+val ids : list (forall a . a -> a)
+val f : forall a . (forall b . b -> b * a) -> a
+
+let infer = f (fun x -> make_pair x ids)
+
+-- Church-encoded lists (F9).
+
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+
+let inferChurch = f (fun x -> (x, churchIds))

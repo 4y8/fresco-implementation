@@ -1,0 +1,9 @@
+type pair a b = Pair of a, b
+type bool = True | False
+
+val true : bool
+val make_pair : forall a b . a -> b -> a * b
+val app : forall a b . (a -> b) -> a -> b
+val id : forall a . a -> a
+
+let infer = app (fun f -> make_pair (f true) (f 42)) id

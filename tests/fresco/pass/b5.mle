@@ -6,3 +6,15 @@ val id : forall a . a -> a
 val ids : list (forall a . a -> a)
 
 let infer = append (single id) ids
+
+-- Church-encoded lists (B5).
+
+val churchAppend : forall a .
+  (forall b . b -> (a -> b -> b) -> b) ->
+  (forall b . b -> (a -> b -> b) -> b) ->
+  (forall b . b -> (a -> b -> b) -> b)
+val churchSingle : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b)
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+
+let inferChurch = churchAppend (churchSingle id) churchIds

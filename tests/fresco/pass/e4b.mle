@@ -7,3 +7,12 @@ val map : forall a b . (a -> b) -> list a -> list b
 val ids : list (forall a . a -> a)
 
 let infer = map (fun x -> poly x) ids
+
+-- Church-encoded lists (E4b).
+
+val churchMap : forall a b . (a -> b) ->
+  (forall c . c -> (a -> c -> c) -> c) ->
+  (forall c . c -> (b -> c -> c) -> c)
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+
+let inferChurch = churchMap (fun x -> poly x) churchIds

@@ -8,3 +8,13 @@ val poly : (forall a . a -> a) -> (int * bool)
 val map : forall a b . (a -> b) -> list a -> list b
 
 let infer = map poly (single id)
+
+-- Church-encoded lists (B6).
+
+val churchMap : forall a b . (a -> b) ->
+  (forall c . c -> (a -> c -> c) -> c) ->
+  (forall c . c -> (b -> c -> c) -> c)
+val churchSingle : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b)
+
+let inferChurch = churchMap poly (churchSingle id)

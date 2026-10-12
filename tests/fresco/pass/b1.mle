@@ -10,3 +10,18 @@ val head : forall a . list a -> a
 let infer1 = tail ids
 let infer2 = head ids
 let infer3 = single id
+
+-- Church-encoded lists (B1a-B1c).
+
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+val churchTail : forall a .
+  (forall b . b -> (a -> b -> b) -> b) ->
+  (forall b . b -> (a -> b -> b) -> b)
+val churchHead : forall a .
+  (forall b . b -> (a -> b -> b) -> b) -> a
+val churchSingle : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b)
+
+let inferChurch1 = churchTail churchIds
+let inferChurch2 = churchHead churchIds
+let inferChurch3 = churchSingle id

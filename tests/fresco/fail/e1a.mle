@@ -5,3 +5,12 @@ val k : forall a . a -> list a -> a
 val h : int -> (forall a . a -> a)
 
 let infer = k h lst
+
+-- Church-encoded lists (E1a).
+
+val churchLst : forall b . b ->
+  ((forall a . int -> a -> a) -> b -> b) -> b
+val churchK : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b) -> a
+
+let inferChurch = churchK h churchLst

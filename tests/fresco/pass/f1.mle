@@ -8,3 +8,12 @@ val map : forall a b . (a -> b) -> list a -> list b
 val ids : list (forall a . a -> a)
 
 let infer = map (fun f -> make_pair (f true) (f 42)) ids
+
+-- Church-encoded lists (F1).
+
+val churchMap : forall a b . (a -> b) ->
+  (forall c . c -> (a -> c -> c) -> c) ->
+  (forall c . c -> (b -> c -> c) -> c)
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+
+let inferChurch = churchMap (fun f -> (f true, f 42)) churchIds

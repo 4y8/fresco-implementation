@@ -1,0 +1,19 @@
+type list a = Nil | Cons of a, list a
+type pair a b = Pair of a, b
+type bool = True | False
+
+val id : forall a . a -> a
+val single : forall a . a -> list a
+val polys : (list (forall a . a -> a)) -> int * bool
+
+let infer = let xs = single id in polys xs
+
+-- Church-encoded lists (F11b, without freezing).
+
+val churchSingle : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b)
+val churchPolys :
+  (forall b . b -> ((forall a . a -> a) -> b -> b) -> b) ->
+  int * bool
+
+let inferChurch = let xs = churchSingle id in churchPolys xs

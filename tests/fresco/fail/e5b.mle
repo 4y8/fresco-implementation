@@ -6,3 +6,10 @@ val poly : (forall a . a -> a) -> (int * bool)
 val head : forall a . list a -> a
 
 let infer xs = poly (head xs)
+
+-- Church-encoded lists (E5b).
+
+val churchHead : forall a .
+  (forall b . b -> (a -> b -> b) -> b) -> a
+
+let inferChurch xs = poly (churchHead xs)

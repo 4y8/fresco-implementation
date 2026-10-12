@@ -4,3 +4,13 @@ val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
 val churchHead : forall a . (forall b . b -> (a -> b -> b) -> b) -> a
 
 let infer = churchHead (choose churchNil {| churchIds |})
+
+-- Native lists (F7).
+
+type list a = Nil | Cons of a, list a
+
+val nativeNil : forall a . list a
+val nativeIds : list (forall a . a -> a)
+val nativeHead : forall a . list a -> a
+
+let inferNative = nativeHead (choose nativeNil nativeIds)

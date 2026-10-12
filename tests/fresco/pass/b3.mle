@@ -4,3 +4,12 @@ val ids : list (forall a . a -> a)
 val cons : forall a . a -> list a -> list a
 
 let infer = cons (fun x -> x) ids
+
+-- Church-encoded lists (B3).
+
+val churchIds : forall b . b -> ((forall a . a -> a) -> b -> b) -> b
+val churchCons : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b) ->
+  (forall b . b -> (a -> b -> b) -> b)
+
+let inferChurch = churchCons (fun x -> x) churchIds

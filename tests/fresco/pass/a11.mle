@@ -8,3 +8,12 @@ val make_pair : forall a b . a -> b -> a * b
 val true : bool
 
 let infer = k (fun f -> make_pair (f 42) (f true)) xs
+
+-- Church-encoded lists (A11).
+
+val churchK : forall a . a ->
+  (forall b . b -> (a -> b -> b) -> b) -> int
+val churchXs : forall b . b ->
+  (((forall a . a -> a) -> (int * bool)) -> b -> b) -> b
+
+let inferChurch = churchK (fun f -> (f 42, f true)) churchXs
