@@ -1,0 +1,10 @@
+type list a = Nil | Cons of a, list a
+type pair a b = Pair of a, b
+type bool = True | False
+
+val true : bool
+val make_pair : forall a b . a -> b -> a * b
+val map : forall a b . (a -> b) -> list a -> list b
+val ids : list (forall a . a -> a)
+
+let infer = map (fun f -> make_pair (f true) (f 42)) ids

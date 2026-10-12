@@ -1,0 +1,4 @@
+(executable
+ (name met)
+ (libraries bindlib core unix)
+ (promote (until-clean)))

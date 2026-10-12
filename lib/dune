@@ -1,0 +1,10 @@
+(ocamllex
+ (modules lexer))
+(menhir
+ (modules parser)
+ (flags --explain --dump --strict)
+ (infer true))
+
+(library
+ (libraries bindlib multicont)
+ (name core))
